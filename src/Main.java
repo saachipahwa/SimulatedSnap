@@ -189,7 +189,7 @@ public class Main {
     /**
      * Creates deck, shuffles and splits into equal parts for each user's hand.
      * Returns an ArrayList containing a Hand of cards for each user.
-     * Throws InterruptedException if thread is interrupted while sleeping
+     * @throws InterruptedException if thread is interrupted while sleeping
      */
     public static ArrayList<Hand> setDeck(int numPlayers) throws InterruptedException {
         Deck deck = new Deck();
@@ -205,7 +205,7 @@ public class Main {
     /**
      * Plays card from user's hand and puts it into their pile of played cards.
      * Returns the card they played.
-     * Throws InterruptedException if thread is interrupted while sleeping
+     * @throws InterruptedException if thread is interrupted while sleeping
      */
     public static Card playCard(int player, Hand playerHand, Pile playedPile) throws InterruptedException {
         Thread.sleep(1000); //Sleep for realism
@@ -220,7 +220,7 @@ public class Main {
      * Generates a random number of milliseconds between 500 and 1000 for each user.
      * The player with the smallest number "snaps" first and puts all the Piles in their Hand.
      * Returns the int corresponding with this user.
-     * Throws InterruptedException if thread is interrupted while sleeping 
+     * @throws InterruptedException if thread is interrupted while sleeping
      */
     public static int whoSnapsFirst(Random[] reactionTimesRand, int numPlayers) throws InterruptedException {
         int fastestPlayer = 0;
