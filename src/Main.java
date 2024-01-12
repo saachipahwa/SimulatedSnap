@@ -106,8 +106,7 @@ public class Main {
             round+=1;
             if (stopCondition==1 && round>=numRounds){
                 System.out.println("All rounds have been completed.");
-                int[] winningInfo = getWinningPlayer(numPlayers, playerHands);
-                System.out.println("Player " + winningInfo[0] + " has won with " + winningInfo[1] + " cards! What a great game.");
+                getWinningPlayer(numPlayers, playerHands);
                 playing = false;
                 break;
             }
@@ -125,7 +124,11 @@ public class Main {
         //Get number of players
         System.out.println("How many players are playing today?");
         int numPlayers = scanner.nextInt();
-        if (numPlayers<=5){
+        if (numPlayers==1) {
+            throw new IllegalArgumentException("We need more than 1 player!");
+
+        }
+        else if (numPlayers<=5 && numPlayers > 1){
             return numPlayers;
         }
         else{
@@ -235,10 +238,11 @@ public class Main {
      * Judges which user has the most cards.
      * Returns ints corresponding to the winning player and the size of their Hand.
      */
-    public static int[] getWinningPlayer(int numPlayers, ArrayList<Hand> playerHands){
+    public static void getWinningPlayer(int numPlayers, ArrayList<Hand> playerHands){
         int winningHandSize = 0;
         int winningPlayer = 0;
 
+        //What is the maximum amount of cards in a player's hand?
         for (int b = 0; b < numPlayers; b++) {
             int size = playerHands.get(b).getSize();
             if (size>winningHandSize){
@@ -247,9 +251,21 @@ public class Main {
             }
         }
 
-        return new int[]{winningPlayer, winningHandSize};
+        //Did more than one player have the maximum amount of cards?
+        int count = 0;
+        for (int b = 0; b < numPlayers; b++) {
+            int size = playerHands.get(b).getSize();
+            if (size==winningHandSize){
+                count+=1;
+            }
+        }
+
+        //If so, it's a draw!
+        if (count>1){
+            System.out.println("It's a draw! What a great game.");
+        }
+        else{
+            System.out.println("Player " + winningPlayer + " has won with " + winningHandSize + " cards! What a great game.");
+        }
     }
-
-
-
 }
