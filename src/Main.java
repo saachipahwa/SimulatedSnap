@@ -63,7 +63,8 @@ public class Main {
             for (player = 0; player < numPlayers; player++) {
                 //Play card
                 if (playerHands.get(player).isEmpty()){
-                    System.out.println("Player " + player + " has no cards. Skip their turn!");
+                    //For user's understanding, +1 to player so that we start counting on 1 instead of 0.
+                    System.out.println("Player " + (player+1) + " has no cards. Skip their turn!");
                     continue;
                 }
 
@@ -89,7 +90,7 @@ public class Main {
 
                         if (playerHands.get(fastestPlayer).getSize()>=52){
                             if(stopCondition==0){ //stop game if stop condition says to
-                                System.out.println("Player " + fastestPlayer + " has won! What a great game.");
+                                System.out.println("Player " + (fastestPlayer+1) + " has won! What a great game.");
                                 playing = false;
                                 break;
                             }
@@ -188,10 +189,11 @@ public class Main {
     /**
      * Creates deck, shuffles and splits into equal parts for each user's hand.
      * Returns an ArrayList containing a Hand of cards for each user.
+     * Throws InterruptedException if thread is interrupted while sleeping
      */
     public static ArrayList<Hand> setDeck(int numPlayers) throws InterruptedException {
         Deck deck = new Deck();
-        System.out.println("Shuffling deck.");
+        System.out.println("One user has all the cards. Shuffling deck.");
         deck.shuffle();
         Thread.sleep(1000); // Sleep for realism since shuffling takes time
 
@@ -203,13 +205,14 @@ public class Main {
     /**
      * Plays card from user's hand and puts it into their pile of played cards.
      * Returns the card they played.
+     * Throws InterruptedException if thread is interrupted while sleeping
      */
     public static Card playCard(int player, Hand playerHand, Pile playedPile) throws InterruptedException {
         Thread.sleep(1000); //Sleep for realism
         Card newCard = playerHand.deal();
 
         playedPile.addCard(newCard); //add card to their played pile
-        System.out.println("Player " + player + " played " + newCard.toString());
+        System.out.println("Player " + (player+1) + " played " + newCard.toString());
         return newCard;
     }
 
@@ -217,6 +220,7 @@ public class Main {
      * Generates a random number of milliseconds between 500 and 1000 for each user.
      * The player with the smallest number "snaps" first and puts all the Piles in their Hand.
      * Returns the int corresponding with this user.
+     * Throws InterruptedException if thread is interrupted while sleeping 
      */
     public static int whoSnapsFirst(Random[] reactionTimesRand, int numPlayers) throws InterruptedException {
         int fastestPlayer = 0;
@@ -230,7 +234,7 @@ public class Main {
             }
         }
         Thread.sleep(fastestTime);
-        System.out.println("Player " + fastestPlayer + " shouts SNAP!");
+        System.out.println("Player " + (fastestPlayer+1) + " shouts SNAP!");
         return fastestPlayer;
     }
 
@@ -265,7 +269,7 @@ public class Main {
             System.out.println("It's a draw! What a great game.");
         }
         else{
-            System.out.println("Player " + winningPlayer + " has won with " + winningHandSize + " cards! What a great game.");
+            System.out.println("Player " + (winningPlayer+1) + " has won with " + winningHandSize + " cards! What a great game.");
         }
     }
 }
