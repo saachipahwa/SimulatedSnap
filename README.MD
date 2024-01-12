@@ -1,5 +1,5 @@
-*Snap Game*
-By Saachi Pahwa
+#Snap Game
+##By Saachi Pahwa
 
 This game asks the user for:
 1. The number of players
